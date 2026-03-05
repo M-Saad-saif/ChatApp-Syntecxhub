@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useChat } from "../context/ChatContext";
-import { useAuth } from "../context/AuthContext";
 import Sidebar from "../components/chat/Sidebar";
 import ChatWindow from "../components/chat/ChatWindow";
 import EmptyState from "../components/chat/EmptyState";

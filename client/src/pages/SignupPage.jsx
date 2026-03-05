@@ -1,30 +1,33 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import './Auth.css';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import "./Auth.css";
 
 export default function SignupPage() {
   const { signup } = useAuth();
-  const navigate    = useNavigate();
+  const navigate = useNavigate();
 
-  const [form, setForm]       = useState({ username: '', email: '', password: '' });
-  const [error, setError]     = useState('');
+  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     if (form.password.length < 6) {
-      return setError('Password must be at least 6 characters');
+      return setError("Password must be at least 6 characters");
     }
     setLoading(true);
     try {
       await signup(form.username, form.email, form.password);
-      navigate('/chat');
+      navigate("/chat");
     } catch (err) {
-      setError(err.response?.data?.message || 'Signup failed. Please try again.');
+      setError(
+        err.response?.data?.message || "Signup failed. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -43,31 +46,51 @@ export default function SignupPage() {
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
-              id="username" name="username" type="text"
-              className="input" placeholder="johndoe"
-              value={form.username} onChange={handleChange}
-              minLength={3} maxLength={20} required
+              id="username"
+              name="username"
+              type="text"
+              className="input"
+              placeholder="johndoe"
+              value={form.username}
+              onChange={handleChange}
+              minLength={3}
+              maxLength={20}
+              required
             />
           </div>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
-              id="email" name="email" type="email"
-              className="input" placeholder="you@example.com"
-              value={form.email} onChange={handleChange} required
+              id="email"
+              name="email"
+              type="email"
+              className="input"
+              placeholder="you@example.com"
+              value={form.email}
+              onChange={handleChange}
+              required
             />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
-              id="password" name="password" type="password"
-              className="input" placeholder="Min. 6 characters"
-              value={form.password} onChange={handleChange}
-              minLength={6} required
+              id="password"
+              name="password"
+              type="password"
+              className="input"
+              placeholder="Min. 6 characters"
+              value={form.password}
+              onChange={handleChange}
+              minLength={6}
+              required
             />
           </div>
-          <button type="submit" className="btn btn-primary auth-submit" disabled={loading}>
-            {loading ? 'Creating account...' : 'Create account'}
+          <button
+            type="submit"
+            className="btn btn-primary auth-submit"
+            disabled={loading}
+          >
+            {loading ? "Creating account..." : "Create account"}
           </button>
         </form>
 

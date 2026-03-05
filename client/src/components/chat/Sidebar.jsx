@@ -44,7 +44,7 @@ export default function Sidebar({ darkMode, onToggleDark }) {
     <aside className="sidebar">
       {/* Header */}
       <div className="sidebar-header">
-        <div className="sidebar-logo">Relay</div>
+        <div className="sidebar-logo">Chitchat</div>
         <div className="sidebar-header-actions">
           <button
             className="btn btn-icon btn-ghost"

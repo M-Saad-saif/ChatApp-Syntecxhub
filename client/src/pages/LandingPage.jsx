@@ -5,7 +5,11 @@ export default function LandingPage() {
   return (
     <div className="landing">
       <nav className="landing-nav">
-        <span className="landing-logo">Relay</span>
+        <div style={{alignItems:"center"}}>
+
+        <img src="/chating.png" alt="" style={{width:"29px"}} />
+        <span className="landing-logo">ChitChat</span>
+        </div>
         <div className="landing-nav-links">
           <Link to="/login" className="btn btn-ghost btn-sm">
             Log in

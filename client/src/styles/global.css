@@ -1,0 +1,151 @@
+/* ── Reset & Base ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Colors */
+  --c-bg:          #f5f4f2;
+  --c-surface:     #ffffff;
+  --c-border:      #e4e2dd;
+  --c-border-soft: #ede9e3;
+  --c-text:        #1a1916;
+  --c-text-2:      #6b6760;
+  --c-text-3:      #9c9890;
+  --c-accent:      #2a5bd7;
+  --c-accent-dim:  #dce7ff;
+  --c-bubble-out:  #2a5bd7;
+  --c-bubble-in:   #ffffff;
+  --c-online:      #34a853;
+  --c-danger:      #d93025;
+  --c-hover:       #f0ede8;
+
+  /* Dark mode */
+  --c-bg-dark:      #111110;
+  --c-surface-dark: #1c1b1a;
+  --c-border-dark:  #2e2d2b;
+  --c-text-dark:    #f0ede8;
+  --c-text-2-dark:  #9c9890;
+  --c-hover-dark:   #242321;
+
+  /* Type */
+  --font-sans:   'DM Sans', system-ui, sans-serif;
+  --font-serif:  'Instrument Serif', Georgia, serif;
+
+  /* Spacing */
+  --sidebar-w:   320px;
+  --header-h:    60px;
+
+  /* Radii */
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+}
+
+[data-theme="dark"] {
+  --c-bg:         var(--c-bg-dark);
+  --c-surface:    var(--c-surface-dark);
+  --c-border:     var(--c-border-dark);
+  --c-border-soft:var(--c-border-dark);
+  --c-text:       var(--c-text-dark);
+  --c-text-2:     var(--c-text-2-dark);
+  --c-text-3:     #6b6760;
+  --c-hover:      var(--c-hover-dark);
+  --c-accent-dim: #1a2d5a;
+  --c-bubble-in:  #242321;
+}
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--c-bg);
+  color: var(--c-text);
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root { height: 100vh; display: flex; }
+
+/* ── Typography ─────────────────────────────────────────────────── */
+h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; }
+p  { line-height: 1.6; }
+
+/* ── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--c-border); border-radius: 4px; }
+
+/* ── Utilities ──────────────────────────────────────────────────── */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+/* ── Buttons ────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 0 18px; height: 40px; border-radius: var(--r-sm);
+  font-family: var(--font-sans); font-size: 14px; font-weight: 500;
+  cursor: pointer; border: none; transition: opacity 0.15s, background 0.15s;
+  text-decoration: none;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary  { background: var(--c-accent); color: #fff; }
+.btn-primary:hover:not(:disabled) { opacity: 0.88; }
+.btn-ghost    { background: transparent; color: var(--c-text); border: 1px solid var(--c-border); }
+.btn-ghost:hover:not(:disabled) { background: var(--c-hover); }
+.btn-sm       { height: 32px; padding: 0 12px; font-size: 13px; }
+.btn-icon     { padding: 0; width: 36px; height: 36px; border-radius: var(--r-sm); }
+
+/* ── Form ───────────────────────────────────────────────────────── */
+.input {
+  width: 100%; height: 42px; padding: 0 14px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  background: var(--c-surface);
+  color: var(--c-text);
+  font-family: var(--font-sans); font-size: 14px;
+  transition: border-color 0.15s;
+  outline: none;
+}
+.input:focus { border-color: var(--c-accent); }
+.input::placeholder { color: var(--c-text-3); }
+
+label { display: block; font-size: 13px; font-weight: 500; color: var(--c-text-2); margin-bottom: 6px; }
+
+.form-group { display: flex; flex-direction: column; gap: 0; margin-bottom: 16px; }
+
+/* ── Avatar ─────────────────────────────────────────────────────── */
+.avatar {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; font-weight: 600; flex-shrink: 0;
+  background: var(--c-accent-dim); color: var(--c-accent);
+  font-size: 14px; user-select: none;
+}
+.avatar-sm  { width: 32px; height: 32px; font-size: 12px; }
+.avatar-md  { width: 40px; height: 40px; font-size: 15px; }
+.avatar-lg  { width: 52px; height: 52px; font-size: 20px; }
+
+.avatar-wrap { position: relative; display: inline-block; }
+.avatar-online-dot {
+  position: absolute; bottom: 1px; right: 1px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--c-online); border: 2px solid var(--c-surface);
+}
+
+/* ── Modal ──────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100; padding: 20px;
+}
+.modal {
+  background: var(--c-surface); border-radius: var(--r-lg);
+  width: 100%; max-width: 440px; padding: 28px;
+  box-shadow: var(--shadow-md);
+}
+.modal-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+
+/* ── Error / Toast ──────────────────────────────────────────────── */
+.error-text { font-size: 13px; color: var(--c-danger); margin-top: 6px; }

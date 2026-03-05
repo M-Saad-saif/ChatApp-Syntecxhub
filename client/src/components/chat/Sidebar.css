@@ -1,84 +1,197 @@
 .sidebar {
-  width: var(--sidebar-w); flex-shrink: 0;
-  display: flex; flex-direction: column;
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
   background: var(--c-surface);
   border-right: 1px solid var(--c-border);
-  height: 100vh; overflow: hidden;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* Header */
 .sidebar-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 16px; height: var(--header-h);
-  border-bottom: 1px solid var(--c-border); flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: var(--header-h);
+  border-bottom: 1px solid var(--c-border);
+  flex-shrink: 0;
 }
-.sidebar-logo { font-size: 17px; font-weight: 700; letter-spacing: -0.4px; color: var(--c-accent); }
-.sidebar-header-actions { display: flex; align-items: center; gap: 8px; }
-.sidebar-avatar-wrap { position: relative; }
+
+.sidebar-logo {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--c-accent);
+}
+
+.sidebar-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-avatar-wrap {
+  position: relative;
+}
 
 /* Search */
-.sidebar-search { padding: 12px 14px; border-bottom: 1px solid var(--c-border); flex-shrink: 0; }
+.sidebar-search {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--c-border);
+  flex-shrink: 0;
+}
+
 .search-wrap {
-  position: relative; display: flex; align-items: center;
-  background: var(--c-bg); border: 1px solid var(--c-border);
-  border-radius: var(--r-sm); overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
 }
-.search-icon  { padding: 0 10px; font-size: 14px; color: var(--c-text-3); }
+
+.search-icon {
+  padding: 0 10px;
+  font-size: 14px;
+  color: var(--c-text-3);
+}
+
 .search-input {
-  flex: 1; height: 36px; background: transparent; border: none;
-  outline: none; font-family: var(--font-sans); font-size: 13px; color: var(--c-text);
+  flex: 1;
+  height: 36px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--c-text);
 }
-.search-input::placeholder { color: var(--c-text-3); }
+
+.search-input::placeholder {
+  color: var(--c-text-3);
+}
+
 .search-clear {
-  padding: 0 10px; background: none; border: none; cursor: pointer;
-  color: var(--c-text-3); font-size: 12px;
+  padding: 0 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--c-text-3);
+  font-size: 12px;
 }
 
 /* Search results */
 .search-results {
   border-bottom: 1px solid var(--c-border);
-  max-height: 240px; overflow-y: auto; flex-shrink: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  flex-shrink: 0;
 }
+
 .search-result-item {
-  display: flex; align-items: center; gap: 10px;
-  width: 100%; padding: 10px 16px; background: none; border: none;
-  cursor: pointer; text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
   transition: background 0.12s;
 }
-.search-result-item:hover { background: var(--c-hover); }
-.search-result-name  { font-size: 13px; font-weight: 500; color: var(--c-text); }
-.search-result-email { font-size: 11px; color: var(--c-text-3); }
+
+.search-result-item:hover {
+  background: var(--c-hover);
+}
+
+.search-result-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-text);
+}
+
+.search-result-email {
+  font-size: 11px;
+  color: var(--c-text-3);
+}
+
 .online-pill {
-  margin-left: auto; font-size: 10px; font-weight: 600;
-  color: var(--c-online); background: #d1fae5; border-radius: 99px; padding: 2px 8px;
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--c-online);
+  background: #d1fae5;
+  border-radius: 99px;
+  padding: 2px 8px;
 }
 
 /* Tabs */
 .sidebar-tabs {
-  display: flex; border-bottom: 1px solid var(--c-border); flex-shrink: 0;
+  display: flex;
+  border-bottom: 1px solid var(--c-border);
+  flex-shrink: 0;
 }
+
 .sidebar-tab {
-  flex: 1; height: 40px; background: none; border: none; cursor: pointer;
-  font-family: var(--font-sans); font-size: 13px; font-weight: 500;
-  color: var(--c-text-2); border-bottom: 2px solid transparent;
+  flex: 1;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-text-2);
+  border-bottom: 2px solid transparent;
   transition: color 0.15s, border-color 0.15s;
 }
-.sidebar-tab.active { color: var(--c-accent); border-bottom-color: var(--c-accent); }
+
+.sidebar-tab.active {
+  color: var(--c-accent);
+  border-bottom-color: var(--c-accent);
+}
 
 /* List */
-.sidebar-list { flex: 1; overflow-y: auto; }
+.sidebar-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
 .sidebar-empty {
-  padding: 32px 20px; text-align: center;
-  font-size: 13px; color: var(--c-text-3); line-height: 1.6;
+  padding: 32px 20px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--c-text-3);
+  line-height: 1.6;
 }
 
 /* Create group */
 .create-group-btn {
-  display: flex; align-items: center; gap: 8px;
-  width: 100%; padding: 12px 16px; background: none; border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
   border-bottom: 1px solid var(--c-border);
-  cursor: pointer; font-family: var(--font-sans); font-size: 13px;
-  font-weight: 500; color: var(--c-accent);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-accent);
 }
-.create-group-btn span { font-size: 18px; line-height: 1; }
-.create-group-btn:hover { background: var(--c-hover); }
+
+.create-group-btn span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.create-group-btn:hover {
+  background: var(--c-hover);
+}

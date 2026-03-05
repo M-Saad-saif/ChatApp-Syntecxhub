@@ -1,39 +1,80 @@
 .chat-window {
-  display: flex; flex-direction: column; height: 100%; overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* Messages area */
 .messages-area {
-  flex: 1; overflow-y: auto; padding: 20px 24px;
-  display: flex; flex-direction: column; gap: 2px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   background: var(--c-bg);
 }
+
 .messages-loading,
 .messages-empty {
-  flex: 1; display: flex; align-items: center; justify-content: center;
-  color: var(--c-text-3); font-size: 14px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-text-3);
+  font-size: 14px;
 }
 
 /* Typing indicator */
 .typing-indicator {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 12px; margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin-top: 4px;
 }
-.typing-text { font-size: 12px; color: var(--c-text-3); }
+
+.typing-text {
+  font-size: 12px;
+  color: var(--c-text-3);
+}
 
 /* Animated dots */
-.loading-dots, .typing-dots {
-  display: inline-flex; gap: 4px;
+.loading-dots,
+.typing-dots {
+  display: inline-flex;
+  gap: 4px;
 }
-.loading-dots span, .typing-dots span {
-  width: 7px; height: 7px; border-radius: 50%;
+
+.loading-dots span,
+.typing-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
   background: var(--c-text-3);
   animation: bounce 1.2s ease-in-out infinite;
 }
-.loading-dots span:nth-child(2), .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-.loading-dots span:nth-child(3), .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+.loading-dots span:nth-child(2),
+.typing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3),
+.typing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
 
 @keyframes bounce {
-  0%, 60%, 100% { transform: translateY(0); }
-  30%           { transform: translateY(-6px); }
+
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+
+  30% {
+    transform: translateY(-6px);
+  }
 }

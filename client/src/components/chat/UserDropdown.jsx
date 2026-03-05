@@ -1,13 +1,15 @@
-import { useEffect, useRef } from 'react';
-import './UserDropdown.css';
+import { useEffect, useRef } from "react";
+import "./UserDropdown.css";
 
 export default function UserDropdown({ user, onLogout, onClose }) {
   const ref = useRef(null);
 
   useEffect(() => {
-    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) onClose(); };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    const handler = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) onClose();
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, [onClose]);
 
   return (

@@ -1,27 +1,31 @@
-import { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { useChat } from '../../context/ChatContext';
-import api from '../../utils/api';
-import ConversationItem from './ConversationItem';
-import GroupItem from './GroupItem';
-import CreateGroupModal from './CreateGroupModal';
-import UserDropdown from './UserDropdown';
-import { getInitials, getAvatarColor } from '../../utils/helpers';
-import './Sidebar.css';
+import { useState, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { useChat } from "../../context/ChatContext";
+import api from "../../utils/api";
+import ConversationItem from "./ConversationItem";
+import GroupItem from "./GroupItem";
+import CreateGroupModal from "./CreateGroupModal";
+import UserDropdown from "./UserDropdown";
+import { getInitials, getAvatarColor } from "../../utils/helpers";
+import "./Sidebar.css";
 
 export default function Sidebar({ darkMode, onToggleDark }) {
   const { user, logout } = useAuth();
-  const { conversations, groups, onlineUsers, openDM, openGroup, activeChat } = useChat();
+  const { conversations, groups, onlineUsers, openDM, openGroup, activeChat } =
+    useChat();
 
-  const [tab, setTab]               = useState('chats'); // 'chats' | 'groups'
-  const [search, setSearch]         = useState('');
+  const [tab, setTab] = useState("chats"); // 'chats' | 'groups'
+  const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showGroupModal, setShowGroupModal] = useState(false);
-  const [showDropdown, setShowDropdown]     = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   // Search users as user types
   useEffect(() => {
-    if (!search.trim()) { setSearchResults([]); return; }
+    if (!search.trim()) {
+      setSearchResults([]);
+      return;
+    }
     const timer = setTimeout(async () => {
       const { data } = await api.get(`/users/search?q=${search}`);
       setSearchResults(data.users);
@@ -31,9 +35,9 @@ export default function Sidebar({ darkMode, onToggleDark }) {
 
   const handleUserClick = async (targetUser) => {
     await openDM(targetUser);
-    setSearch('');
+    setSearch("");
     setSearchResults([]);
-    setTab('chats');
+    setTab("chats");
   };
 
   return (
@@ -45,20 +49,29 @@ export default function Sidebar({ darkMode, onToggleDark }) {
           <button
             className="btn btn-icon btn-ghost"
             onClick={onToggleDark}
-            title={darkMode ? 'Light mode' : 'Dark mode'}
+            title={darkMode ? "Light mode" : "Dark mode"}
           >
-            {darkMode ? '☀️' : '🌙'}
+            {darkMode ? "☀️" : "🌙"}
           </button>
           <div className="sidebar-avatar-wrap">
             <button
               className="avatar avatar-sm"
-              style={{ background: getAvatarColor(user?.username), color: '#fff', border: 'none', cursor: 'pointer' }}
+              style={{
+                background: getAvatarColor(user?.username),
+                color: "#fff",
+                border: "none",
+                cursor: "pointer",
+              }}
               onClick={() => setShowDropdown((v) => !v)}
             >
               {getInitials(user?.username)}
             </button>
             {showDropdown && (
-              <UserDropdown user={user} onLogout={logout} onClose={() => setShowDropdown(false)} />
+              <UserDropdown
+                user={user}
+                onLogout={logout}
+                onClose={() => setShowDropdown(false)}
+              />
             )}
           </div>
         </div>
@@ -75,7 +88,15 @@ export default function Sidebar({ darkMode, onToggleDark }) {
             onChange={(e) => setSearch(e.target.value)}
           />
           {search && (
-            <button className="search-clear" onClick={() => { setSearch(''); setSearchResults([]); }}>✕</button>
+            <button
+              className="search-clear"
+              onClick={() => {
+                setSearch("");
+                setSearchResults([]);
+              }}
+            >
+              ✕
+            </button>
           )}
         </div>
       </div>
@@ -84,10 +105,17 @@ export default function Sidebar({ darkMode, onToggleDark }) {
       {searchResults.length > 0 && (
         <div className="search-results">
           {searchResults.map((u) => (
-            <button key={u._id} className="search-result-item" onClick={() => handleUserClick(u)}>
+            <button
+              key={u._id}
+              className="search-result-item"
+              onClick={() => handleUserClick(u)}
+            >
               <span
                 className="avatar avatar-sm"
-                style={{ background: getAvatarColor(u.username), color: '#fff' }}
+                style={{
+                  background: getAvatarColor(u.username),
+                  color: "#fff",
+                }}
               >
                 {getInitials(u.username)}
               </span>
@@ -95,7 +123,9 @@ export default function Sidebar({ darkMode, onToggleDark }) {
                 <div className="search-result-name">{u.username}</div>
                 <div className="search-result-email">{u.email}</div>
               </div>
-              {onlineUsers.includes(u._id) && <span className="online-pill">Online</span>}
+              {onlineUsers.includes(u._id) && (
+                <span className="online-pill">Online</span>
+              )}
             </button>
           ))}
         </div>
@@ -104,14 +134,14 @@ export default function Sidebar({ darkMode, onToggleDark }) {
       {/* Tabs */}
       <div className="sidebar-tabs">
         <button
-          className={`sidebar-tab ${tab === 'chats' ? 'active' : ''}`}
-          onClick={() => setTab('chats')}
+          className={`sidebar-tab ${tab === "chats" ? "active" : ""}`}
+          onClick={() => setTab("chats")}
         >
           Chats
         </button>
         <button
-          className={`sidebar-tab ${tab === 'groups' ? 'active' : ''}`}
-          onClick={() => setTab('groups')}
+          className={`sidebar-tab ${tab === "groups" ? "active" : ""}`}
+          onClick={() => setTab("groups")}
         >
           Groups
         </button>
@@ -119,40 +149,58 @@ export default function Sidebar({ darkMode, onToggleDark }) {
 
       {/* List */}
       <div className="sidebar-list">
-        {tab === 'chats' && (
-          conversations.length === 0
-            ? <p className="sidebar-empty">No conversations yet.<br />Search for someone to start chatting.</p>
-            : conversations.map((c) => (
-                <ConversationItem
-                  key={c._id}
-                  conversation={c}
-                  currentUser={user}
-                  onlineUsers={onlineUsers}
-                  isActive={activeChat?.type === 'dm' && activeChat.data._id === c._id}
-                  onClick={() => {
-                    const other = c.participants.find((p) => p._id !== user._id);
-                    if (other) openDM(other);
-                  }}
-                />
-              ))
-        )}
+        {tab === "chats" &&
+          (conversations.length === 0 ? (
+            <p className="sidebar-empty">
+              No conversations yet.
+              <br />
+              Search for someone to start chatting.
+            </p>
+          ) : (
+            conversations.map((c) => (
+              <ConversationItem
+                key={c._id}
+                conversation={c}
+                currentUser={user}
+                onlineUsers={onlineUsers}
+                isActive={
+                  activeChat?.type === "dm" && activeChat.data._id === c._id
+                }
+                onClick={() => {
+                  const other = c.participants.find((p) => p._id !== user._id);
+                  if (other) openDM(other);
+                }}
+              />
+            ))
+          ))}
 
-        {tab === 'groups' && (
+        {tab === "groups" && (
           <>
-            <button className="create-group-btn" onClick={() => setShowGroupModal(true)}>
+            <button
+              className="create-group-btn"
+              onClick={() => setShowGroupModal(true)}
+            >
               <span>+</span> New group
             </button>
-            {groups.length === 0
-              ? <p className="sidebar-empty">No groups yet.<br />Create one above.</p>
-              : groups.map((g) => (
-                  <GroupItem
-                    key={g._id}
-                    group={g}
-                    isActive={activeChat?.type === 'group' && activeChat.data._id === g._id}
-                    onClick={() => openGroup(g)}
-                  />
-                ))
-            }
+            {groups.length === 0 ? (
+              <p className="sidebar-empty">
+                No groups yet.
+                <br />
+                Create one above.
+              </p>
+            ) : (
+              groups.map((g) => (
+                <GroupItem
+                  key={g._id}
+                  group={g}
+                  isActive={
+                    activeChat?.type === "group" &&
+                    activeChat.data._id === g._id
+                  }
+                  onClick={() => openGroup(g)}
+                />
+              ))
+            )}
           </>
         )}
       </div>

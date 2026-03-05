@@ -1,22 +1,30 @@
-import { getInitials, getAvatarColor, formatMessageTime } from '../../utils/helpers';
-import './MessageBubble.css';
+import {
+  getInitials,
+  getAvatarColor,
+  formatMessageTime,
+} from "../../utils/helpers";
+import "./MessageBubble.css";
 
 export default function MessageBubble({ message, isOwn, showAvatar }) {
-  const senderName = message.sender?.username || 'Unknown';
+  const senderName = message.sender?.username || "Unknown";
 
   return (
-    <div className={`bubble-row ${isOwn ? 'own' : 'other'}`}>
+    <div className={`bubble-row ${isOwn ? "own" : "other"}`}>
       {!isOwn && (
         <div className="bubble-avatar-slot">
           {showAvatar ? (
             <span
               className="avatar avatar-sm"
-              style={{ background: getAvatarColor(senderName), color: '#fff', flexShrink: 0 }}
+              style={{
+                background: getAvatarColor(senderName),
+                color: "#fff",
+                flexShrink: 0,
+              }}
             >
               {getInitials(senderName)}
             </span>
           ) : (
-            <span style={{ width: 32, display: 'inline-block' }} />
+            <span style={{ width: 32, display: "inline-block" }} />
           )}
         </div>
       )}
@@ -25,14 +33,17 @@ export default function MessageBubble({ message, isOwn, showAvatar }) {
         {!isOwn && showAvatar && (
           <span className="bubble-sender">{senderName}</span>
         )}
-        <div className={`bubble ${isOwn ? 'bubble-out' : 'bubble-in'}`}>
+        <div className={`bubble ${isOwn ? "bubble-out" : "bubble-in"}`}>
           <span className="bubble-text">{message.text}</span>
         </div>
         <span className="bubble-time">
           {formatMessageTime(message.createdAt)}
           {isOwn && (
-            <span className="bubble-read" title={message.readBy?.length > 1 ? 'Seen' : 'Sent'}>
-              {message.readBy?.length > 1 ? ' ✓✓' : ' ✓'}
+            <span
+              className="bubble-read"
+              title={message.readBy?.length > 1 ? "Seen" : "Sent"}
+            >
+              {message.readBy?.length > 1 ? " ✓✓" : " ✓"}
             </span>
           )}
         </span>

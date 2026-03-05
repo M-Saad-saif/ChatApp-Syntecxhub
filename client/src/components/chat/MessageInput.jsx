@@ -1,29 +1,37 @@
-import { useState, useRef, useCallback } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { useChat } from '../../context/ChatContext';
-import { getSocket } from '../../utils/socket';
-import './MessageInput.css';
+import { useState, useRef, useCallback } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { useChat } from "../../context/ChatContext";
+import { getSocket } from "../../utils/socket";
+import "./MessageInput.css";
 
 export default function MessageInput() {
-  const { user }       = useAuth();
+  const { user } = useAuth();
   const { activeChat, sendMessage } = useChat();
 
-  const [text, setText]           = useState('');
-  const [isTyping, setIsTyping]   = useState(false);
-  const typingTimerRef            = useRef(null);
+  const [text, setText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const typingTimerRef = useRef(null);
 
-  const emitTyping = useCallback((typing) => {
-    const socket = getSocket();
-    if (!socket || !activeChat) return;
+  const emitTyping = useCallback(
+    (typing) => {
+      const socket = getSocket();
+      if (!socket || !activeChat) return;
 
-    const event = typing ? 'typing:start' : 'typing:stop';
-    if (activeChat.type === 'dm') {
-      const receiver = activeChat.data.participants?.find((p) => p._id !== user._id);
-      socket.emit(event, { conversationId: activeChat.data._id, receiverId: receiver?._id });
-    } else {
-      socket.emit(event, { groupId: activeChat.data._id });
-    }
-  }, [activeChat, user]);
+      const event = typing ? "typing:start" : "typing:stop";
+      if (activeChat.type === "dm") {
+        const receiver = activeChat.data.participants?.find(
+          (p) => p._id !== user._id,
+        );
+        socket.emit(event, {
+          conversationId: activeChat.data._id,
+          receiverId: receiver?._id,
+        });
+      } else {
+        socket.emit(event, { groupId: activeChat.data._id });
+      }
+    },
+    [activeChat, user],
+  );
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -43,7 +51,7 @@ export default function MessageInput() {
   const handleSend = () => {
     if (!text.trim()) return;
     sendMessage(text.trim());
-    setText('');
+    setText("");
     clearTimeout(typingTimerRef.current);
     if (isTyping) {
       setIsTyping(false);
@@ -52,7 +60,7 @@ export default function MessageInput() {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
@@ -69,7 +77,7 @@ export default function MessageInput() {
         rows={1}
       />
       <button
-        className={`send-btn ${text.trim() ? 'active' : ''}`}
+        className={`send-btn ${text.trim() ? "active" : ""}`}
         onClick={handleSend}
         disabled={!text.trim()}
         aria-label="Send message"

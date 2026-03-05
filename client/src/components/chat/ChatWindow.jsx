@@ -1,19 +1,19 @@
-import { useRef, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { useChat } from '../../context/ChatContext';
-import ChatHeader from './ChatHeader';
-import MessageBubble from './MessageBubble';
-import MessageInput from './MessageInput';
-import './ChatWindow.css';
+import { useRef, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { useChat } from "../../context/ChatContext";
+import ChatHeader from "./ChatHeader";
+import MessageBubble from "./MessageBubble";
+import MessageInput from "./MessageInput";
+import "./ChatWindow.css";
 
 export default function ChatWindow() {
-  const { user }             = useAuth();
+  const { user } = useAuth();
   const { messages, activeChat, loadingMessages, typingUsers } = useChat();
-  const bottomRef            = useRef(null);
+  const bottomRef = useRef(null);
 
   // Auto-scroll to bottom on new message
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const chatKey = activeChat?.data?._id;
@@ -26,7 +26,11 @@ export default function ChatWindow() {
       <div className="messages-area">
         {loadingMessages ? (
           <div className="messages-loading">
-            <span className="loading-dots"><span /><span /><span /></span>
+            <span className="loading-dots">
+              <span />
+              <span />
+              <span />
+            </span>
           </div>
         ) : messages.length === 0 ? (
           <div className="messages-empty">
@@ -40,14 +44,17 @@ export default function ChatWindow() {
                 message={msg}
                 isOwn={msg.sender._id === user._id || msg.sender === user._id}
                 showAvatar={
-                  i === 0 ||
-                  messages[i - 1]?.sender?._id !== msg.sender?._id
+                  i === 0 || messages[i - 1]?.sender?._id !== msg.sender?._id
                 }
               />
             ))}
             {isTyping && (
               <div className="typing-indicator">
-                <span className="typing-dots"><span /><span /><span /></span>
+                <span className="typing-dots">
+                  <span />
+                  <span />
+                  <span />
+                </span>
                 <span className="typing-text">typing...</span>
               </div>
             )}
